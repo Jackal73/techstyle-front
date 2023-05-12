@@ -141,7 +141,7 @@ export default function CartPage() {
             <h2>
             Order information
             </h2>
-            <form method="post" action="'/api/checkout">
+            <form method="post" action="/api/checkout">
               <Input
                 type="text"
                 placeholder="Name"
@@ -190,6 +190,10 @@ export default function CartPage() {
                 value={country}
                 name="country"
                 onChange={ev => setCountry(ev.target.value)} />
+                <input
+                  type="hidden"
+                  name="products"
+                  value={cartProducts.join(',')} />
 
               <Button black block type="submit">Continue to payment</Button>
             </form>
