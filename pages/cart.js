@@ -64,8 +64,8 @@ export default function CartPage() {
       .then(response => {
         setProducts(response.data);
       })
-    } else { setProducts([]);
-
+    } else {
+        setProducts([]);
     }
   }, [cartProducts]);
 
@@ -77,11 +77,38 @@ export default function CartPage() {
     removeProduct(id);
   }
 
+  async function goToPayment() {
+    const response = await axios.post('/api/checkout', {
+      name, email, city, postalCode, streetAddress, country, state,
+      cartProducts,
+    });
+    if (response.data.url) {
+      window.location = response.data.url;
+    }
+  }
+
   let total = 0;
   for (const productId of cartProducts) {
     const price = products.find(p => p._id === productId)?.price || 0;
     total += price;
   }
+
+  // if (window.location.href.includes('success')) {
+    return (
+      <>
+      <Header />
+      <Center>
+        <ColumnsWrapper>
+          <Box>
+            <h1>Payment successful!</h1>
+            <p>Thank you for your order.</p>
+            <p>You will receive an email when your order ships.</p>
+          </Box>
+        </ColumnsWrapper>
+      </Center>
+      </>
+    );
+  // }
 
   return (
     <>
@@ -141,7 +168,7 @@ export default function CartPage() {
             <h2>
             Order information
             </h2>
-            <form method="post" action="/api/checkout">
+
               <Input
                 type="text"
                 placeholder="Name"
@@ -190,13 +217,15 @@ export default function CartPage() {
                 value={country}
                 name="country"
                 onChange={ev => setCountry(ev.target.value)} />
-                <input
-                  type="hidden"
-                  name="products"
-                  value={cartProducts.join(',')} />
 
-              <Button black block type="submit">Continue to payment</Button>
-            </form>
+
+              <Button
+                black
+                block
+                onClick={goToPayment}>
+                  Continue to payment
+              </Button>
+
           </Box>
           )}
 
