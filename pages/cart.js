@@ -10,9 +10,27 @@ import styled from "styled-components";
 
 const ColumnsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-columns: 1fr;
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1.2fr .8fr;
+  }
   gap: 40px;
   margin-top: 40px;
+  margin-bottom: 40px;
+  table thead tr th:nth-child(3),
+  table tbody tr td:nth-child(3),
+  table tbody tr.subtotal td:nth-child(2){
+    text-align: right;
+  }
+  table tr.subtotal td{
+    padding: 15px 0;
+  }
+  table tbody tr.subtotal td:nth-child(2){
+    font-size: 1.4rem;
+  }
+  tr.total td{
+    font-weight: bold;
+  }
 `;
 
 const Box = styled.div`
@@ -22,26 +40,44 @@ padding: 30px;`;
 
 const ProductInfoCell = styled.td`
   padding: 10px 0;
-
+  button{padding:0 !important;}
 `;
 
 const ProductImageBox = styled.div`
-  width: 100px;
+  width: 70px;
   height: 100px;
-  padding: 10px;
+  padding: 2px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
+  display:flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  img {
-    max-width: 80px;
-    max-height: 80px;
+  img{
+    max-width: 60px;
+    max-height: 60px;
+  }
+  @media screen and (min-width: 768px) {
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    img{
+      max-width: 80px;
+      max-height: 80px;
+    }
+  }
+`;
 
-  }`;
+// const QuantityLabel = styled.span`
+//   padding: 0 3px;`;
 
-  const QuantityLabel = styled.span`
-  padding: 0 3px;`;
+const QuantityLabel = styled.span`
+  padding: 0 15px;
+  display: block;
+  @media screen and (min-width: 768px) {
+    display: inline-block;
+    padding: 0 6px;
+  }
+`;
 
   const CityHolder = styled.div`
   display: flex;
@@ -100,6 +136,7 @@ export default function CartPage() {
 
   let total = 0;
   for (const productId of cartProducts) {
+
     const price = products.find(p => p._id === productId)?.price || 0;
     total += price;
   }
@@ -143,7 +180,7 @@ export default function CartPage() {
                 </thead>
                 <tbody>
                   {products.map(product => (
-                    <tr>
+                    <tr key={product._id}>
                       <ProductInfoCell>
                         <ProductImageBox>
                           <img src={product.images[0]} alt="" />
