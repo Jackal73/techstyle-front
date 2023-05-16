@@ -1,7 +1,6 @@
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import ProductBox from "@/components/ProductBox";
-import Title from "@/components/Title";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
 import Link from "next/link";
@@ -17,7 +16,7 @@ const CategoryGrid = styled.div`
 
   const CategoryTitle = styled.div`
     display: flex;
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 0;
     align-items: center;
     gap: 15px;
