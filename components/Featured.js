@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import Center from "./Center";
 import ButtonLink from "./ButtonLink";
-import Button from "./Button";
 import CartIcon from "./icons/CartIcon";
-import { useContext } from "react";
-import { CartContext } from "./CartContext";
 import FlyingButton from "./FlyingButton";
+import {RevealWrapper} from  'next-reveal';
 
 const Bg = styled.div`
   background-color: #222;
@@ -81,7 +79,7 @@ const ContentWrapper = styled.div`
 
 
 export default function Featured({ product }) {
-  const {addProduct} = useContext(CartContext);
+
 
 
   return (
@@ -90,25 +88,33 @@ export default function Featured({ product }) {
         <ColumnsWrapper>
           <Column>
             <div>
+
+              <RevealWrapper origin={'left'}>
               <Title>{product.title}</Title>
               <Desc>{product.description}</Desc>
               <ButtonsWrapper>
-                <ButtonLink href={"/product/" + product._id} outline={1} white={1}>
-                  Read more
-                </ButtonLink>
-                <FlyingButton white _id={product._id} src={product.images?.[0]}>
-                  <CartIcon />
-                  Add to cart
-                </FlyingButton>
 
-              </ButtonsWrapper>
+                <ButtonLink href={"/product/" + product._id} outline={1} white={1}>
+                    Read more
+                  </ButtonLink>
+                  <FlyingButton white _id={product._id} src={product.images?.[0]}>
+                    <CartIcon />
+                    Add to cart
+                  </FlyingButton>
+
+                </ButtonsWrapper>
+              </RevealWrapper>
+
             </div>
           </Column>
           <Column>
-            <img
+          <RevealWrapper>
+          <img
               src="https://leclaireur.fnac.com/wp-content/uploads/4d/0190198711465/9068554-pictures-defaut-1256x826.png"
               alt=""
             />
+          </RevealWrapper>
+
           </Column>
         </ColumnsWrapper>
       </Center>
