@@ -29,7 +29,7 @@ const ColumnsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  img {
+  img.main {
     max-width: 100%;
     max-height: 200px;
     display: block;
@@ -89,7 +89,7 @@ export default function Featured({ product }) {
           <Column>
             <div>
 
-              <RevealWrapper origin={'left'}>
+              <RevealWrapper origin={'left'} delay={0}>
               <Title>{product.title}</Title>
               <Desc>{product.description}</Desc>
               <ButtonsWrapper>
@@ -108,8 +108,9 @@ export default function Featured({ product }) {
             </div>
           </Column>
           <Column>
-          <RevealWrapper>
+          <RevealWrapper delay={0}>
           <img
+              className={'main'}
               src="https://leclaireur.fnac.com/wp-content/uploads/4d/0190198711465/9068554-pictures-defaut-1256x826.png"
               alt=""
             />

@@ -64,7 +64,7 @@ export default function CategoriesPage({mainCategories, categoriesProducts}) {
             <CategoryGrid>
               {categoriesProducts[cat._id].map((p, index) => (
                 <RevealWrapper delay={index*50}>
-                  <ProductBox key={p._id} {...p} />
+                  <ProductBox {...p} />
                 </RevealWrapper>
 
               ))}
