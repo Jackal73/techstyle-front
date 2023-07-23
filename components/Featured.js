@@ -90,33 +90,37 @@ export default function Featured({ product }) {
             <div>
 
               <RevealWrapper origin={'left'} delay={0}>
-              <Title>{product.title}</Title>
-              <Desc>{product.description}</Desc>
-              <ButtonsWrapper>
+                <ContentWrapper>
+                  <Title>{product.title}</Title>
+                  <Desc>{product.description}</Desc>
+                    <ButtonsWrapper>
 
-                <ButtonLink href={"/product/" + product._id} outline={1} white={1}>
-                    Read more
-                  </ButtonLink>
-                  <FlyingButton white={1} _id={product._id} src={product.images?.[0]}>
-                    <CartIcon />
-                    Add to cart
-                  </FlyingButton>
+                      <ButtonLink href={"/product/" + product._id} outline={1} white={1}>
+                          Read more
+                        </ButtonLink>
+                        <FlyingButton white={1} _id={product._id} src={product.images?.[0]}>
+                          <CartIcon />
+                          Add to cart
+                        </FlyingButton>
 
-                </ButtonsWrapper>
+                    </ButtonsWrapper>
+                </ContentWrapper>
               </RevealWrapper>
 
             </div>
           </Column>
-          <Column>
-          <RevealWrapper delay={0}>
-          <img
-              className={'main'}
-              src="https://leclaireur.fnac.com/wp-content/uploads/4d/0190198711465/9068554-pictures-defaut-1256x826.png"
-              alt=""
-            />
-          </RevealWrapper>
+          <ImgColumn>
+            <RevealWrapper delay={0}>
+              <CenterImg className="">
+                <img
+                    className={'main'}
+                    src={product.images?.[0]}
+                    alt="Featured product image"
+                  />
+              </CenterImg>
+            </RevealWrapper>
 
-          </Column>
+          </ImgColumn>
         </ColumnsWrapper>
       </Center>
     </Bg>
