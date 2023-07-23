@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ButtonStyle } from "./Button";
 import { primary } from "@/lib/colors";
-import FlyingButtonOriginal from 'react-flying-item'
+// import FlyingButtonOriginal from 'react-flying-item'
 import { useContext, useEffect, useRef, useState } from "react";
 import { CartContext } from "./CartContext";
 
@@ -25,7 +25,7 @@ const FlyingButtonWrapper = styled.div`
   @keyframes fly{
     100%{
       top:0;
-      left:100%;
+      left:70%;
       opacity: 0;
       display:none;
       max-width: 50px;
