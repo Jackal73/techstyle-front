@@ -84,7 +84,7 @@ export default function CategoryPage({
 
 
     })
-  },[filtersValues, sort, filtersChanged]);
+  },[filtersValues, sort, filtersChanged, category._id, subCategories]);
 
 
 
