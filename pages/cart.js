@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Input from "@/components/Input";
 import Table from "@/components/Table";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { RevealWrapper } from "next-reveal";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -85,7 +86,7 @@ const QuantityLabel = styled.span`
   gap: 5px;`;
 
 export default function CartPage() {
-  const {cartProducts, addProduct, removeProduct, clearCart} = useContext(CartContext);
+  const {cartProducts, addProduct, removeProduct, clearCart} = useContext(CartContext);const {data:session} = useSession();
   const [products, setProducts] = useState([]);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -95,6 +96,7 @@ export default function CartPage() {
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [shippingFee, setShippingFee] = useState(null);
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -115,7 +117,29 @@ export default function CartPage() {
       setIsSuccess(true)
       clearCart();
     }
+
+    axios.get('/api/settings?name=shippingFee').then(res => {
+      setShippingFee(res.data.value)
+    })
+
+  // }, [session]);
   }, []);
+
+  useEffect(() => {
+    if (!session) {
+      return
+    }
+
+    axios.get('/api/address').then(response => {
+      setName(response.data.name);
+      setEmail(response.data.email);
+      setCity(response.data.city);
+      setState(response.data.state);
+      setPostalCode(response.data.postalCode);
+      setStreetAddress(response.data.streetAddress);
+      setCountry(response.data.country);
+    });
+  }, [session])
 
   function moreOfThisProduct(id) {
     addProduct(id);
@@ -135,11 +159,11 @@ export default function CartPage() {
     }
   }
 
-  let total = 0;
+  let productsTotal = 0;
   for (const productId of cartProducts) {
 
     const price = products.find(p => p._id === productId)?.price || 0;
-    total += price;
+    productsTotal += price;
   }
 
   if (isSuccess) {
@@ -202,11 +226,19 @@ export default function CartPage() {
 
                     </tr>
                   ))}
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td>$ {total}</td>
+                  <tr className="subtotal">
+                    <td colSpan={2}>Subtotal</td>
 
+                    <td>${productsTotal}</td>
+
+                  </tr>
+                  <tr className="subtotal">
+                    <td colSpan={2}>+ Shipping</td>
+                    <td>${shippingFee}</td>
+                  </tr>
+                  <tr className="subtotal total">
+                    <td colSpan={2}>Total</td>
+                    <td>${productsTotal + parseInt(shippingFee || 0)}</td>
                   </tr>
 
                 </tbody>
@@ -235,6 +267,13 @@ export default function CartPage() {
                 name="email"
                 onChange={ev => setEmail(ev.target.value)} />
 
+              <Input
+                type="text"
+                placeholder="Street Address"
+                value={streetAddress}
+                name="streetAddress"
+                onChange={ev => setStreetAddress(ev.target.value)} />
+
               <CityHolder>
                 <Input
                   type="text"
@@ -250,12 +289,7 @@ export default function CartPage() {
                   onChange={ev => setPostalCode(ev.target.value)} />
               </CityHolder>
 
-              <Input
-                type="text"
-                placeholder="Street Address"
-                value={streetAddress}
-                name="streetAddress"
-                onChange={ev => setStreetAddress(ev.target.value)} />
+
 
               <Input
                 type="text"
@@ -290,3 +324,4 @@ export default function CartPage() {
     </>
   )
 }
+
