@@ -129,7 +129,7 @@ export default function AccountPage() {
                       {orderLoaded && (
                         <div className="">
                           {orders.length === 0 && (
-                            <p>Login to see your orders</p>
+                            <p>Login to view your orders</p>
                           )}
                         {orders.length > 0 && orders.map(o => (
                           <SingleOrder key={o._id} {...o} />
