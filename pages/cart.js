@@ -123,7 +123,7 @@ export default function CartPage() {
     })
 
   // }, [session]);
-  }, []);
+  });
 
   useEffect(() => {
     if (!session) {
