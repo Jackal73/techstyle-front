@@ -74,7 +74,7 @@ export default function ProductReviews({product}) {
 
   useEffect(() => {
     loadReviews();
-  });
+  }, []);
 
   function loadReviews() {
     setReviewsLoading(true);
