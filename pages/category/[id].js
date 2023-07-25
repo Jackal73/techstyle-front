@@ -9,37 +9,37 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const CategoryHeader = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-h1 {
-  font-size: 1.5em;
-}`;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h1 {
+    font-size: 1.5em;
+  }
+`;
 
 const FiltersWrapper = styled.div`
-display: flex;
-gap:15px`;
+  display: flex;
+  gap:15px
+`;
 
 const Filter = styled.div`
-background-color: #ddd;
-padding: 5px 10px;
-border-radius: 5px;
-display: flex;
-gap: 5px;
-color: #444;
-select {
-  background-color: transparent;
-  border: 0;
-  font-size: inherit;
+  background-color: #ddd;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  gap: 5px;
   color: #444;
-}`;
+  select {
+    background-color: transparent;
+    border: 0;
+    font-size: inherit;
+    color: #444;
+  }
+`;
 
-export default function CategoryPage({
-  category, subCategories, products:originalProducts
-}) {
+export default function CategoryPage({ category, subCategories, products:originalProducts }) {
   const defaultSorting = '_id-desc';
-  const defaultFilterValues = category.properties
-    .map(p => ({name:p.name, value:'all'}))
+  const defaultFilterValues = category.properties.map(p => ({name:p.name, value:'all'}));
   const [products, setProducts] = useState(originalProducts);
   const [filtersValues, setFiltersValues] = useState( defaultFilterValues );
   const [sort, setSort] = useState(defaultSorting);
@@ -56,8 +56,6 @@ export default function CategoryPage({
     setFiltersChanged(true);
   }
 
-
-
   useEffect(() => {
     if (!filtersChanged) {
       return;
@@ -73,7 +71,6 @@ export default function CategoryPage({
       if (f.value !== 'all') {
         params.set(f.name, f.value);
       }
-
     });
     const url = `/api/products?` + params.toString();
 
@@ -82,8 +79,6 @@ export default function CategoryPage({
         setLoadingProducts(false)
     })
   },[filtersValues, sort, filtersChanged, category, subCategories]);
-
-
 
   return (
     <>
@@ -117,29 +112,25 @@ export default function CategoryPage({
             <option value="price-desc">price highest</option>
             <option value="_id-desc">newest first</option>
             <option value="_id-asc">oldest first</option>
-
-
           </select>
         </Filter>
       </FiltersWrapper>
       </CategoryHeader>
-      {loadingProducts && (
-        <Spinner fullWidth />
-      )}
-      {!loadingProducts && (
-        <div>
-          {products.length > 0 && (
-            <ProductsGrid products={products} />
-          )}
-          {products.length === 0 && (
-            <div>
-              Sorry,no products found
-            </div>
-          )}
-        </div>
-
-      )}
-
+        {loadingProducts && (
+          <Spinner fullWidth />
+        )}
+        {!loadingProducts && (
+          <div>
+            {products.length > 0 && (
+              <ProductsGrid products={products} />
+            )}
+            {products.length === 0 && (
+              <div>
+                Sorry,no products found
+              </div>
+            )}
+          </div>
+        )}
       </Center>
     </>
   );

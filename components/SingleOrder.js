@@ -3,7 +3,6 @@ import styled from "styled-components";
 const StyledOrder = styled.div`
   margin: 5px 0;
   padding: 10px 0;
-
   border-bottom: 1px solid #ddd;
   display: flex;
   gap: 20px;
@@ -32,7 +31,6 @@ const ProductSpan = styled.span`
 `;
 
 const ProductItem = styled.span`
-// font-weight: 600;
   font-size:.9rem;
   color: #888;
   span {
@@ -54,8 +52,8 @@ export default function SingleOrder({line_items, createdAt, ...rest}) {
   let orderDate = dateF.toLocaleString();
 
   return (
-    <StyledOrder className="">
-      <div className="">
+    <StyledOrder>
+      <div>
         <Time>{orderDate}</Time>
           <Address>
             {rest.name}<br />
@@ -64,17 +62,14 @@ export default function SingleOrder({line_items, createdAt, ...rest}) {
             {rest.city}, {rest.state}, {rest.country} {rest.postalCode}
           </Address>
       </div>
-
-      <div className="">
+      <div>
         {line_items.map(item => (
-
-          <ProductRow key={item.price_data.product_data.name} className="">
-            <ProductItem className="">
+          <ProductRow key={item.price_data.product_data.name}>
+            <ProductItem>
               {item.quantity}  <span>{item.price_data.product_data.name}</span>
             </ProductItem>
-            <ProductSpan className="">${item.price_data.unit_amount / 100} </ProductSpan>
+            <ProductSpan>${item.price_data.unit_amount / 100} </ProductSpan>
           </ProductRow>
-
         ))}
       </div>
     </StyledOrder>

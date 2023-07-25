@@ -17,26 +17,26 @@ const CategoryGrid = styled.div`
   gap: 20px;
   @media screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-  }`;
+  }
+`;
 
-  const CategoryTitle = styled.div`
-    display: flex;
-    margin-top: 10px;
-    margin-bottom: 0;
-    align-items: center;
-    gap: 15px;
-    h2 {
-      margin-bottom: 10px;
-      margin-top: 8px;
-    }
-    a {
-      color: #555;
-    }
-  `;
+const CategoryTitle = styled.div`
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 0;
+  align-items: center;
+  gap: 15px;
+  h2 {
+    margin-bottom: 10px;
+    margin-top: 8px;
+  }
+  a {
+    color: #555;
+  }
+`;
 
-  const CategoryWrapper = styled.div`
+const CategoryWrapper = styled.div`
   margin-bottom: 40px;
-
 `;
 
 const ShowAllSquare = styled(Link)`
@@ -61,21 +61,17 @@ export default function CategoriesPage({mainCategories, categoriesProducts, wish
               <h2>{cat.name}</h2>
               <div>
                 <Link href={'/category/'+cat._id}>Show all</Link>
-                  {/* <Link href={'/category/'+cat._id}>Show all {cat.name}</Link> */}
               </div>
             </CategoryTitle>
-
             <CategoryGrid>
               {categoriesProducts[cat._id].map((p, index) => (
                 <RevealWrapper key={index} delay={index*50}>
                   <ProductBox {...p} wished = {wishedProducts.includes(p._id)} />
                 </RevealWrapper>
-
               ))}
               <RevealWrapper delay={categoriesProducts[cat._id].length*50}>
-              <ShowAllSquare href={'/category/'+cat._id}>Show all &rarr;</ShowAllSquare>
+                <ShowAllSquare href={'/category/'+cat._id}>Show all &rarr;</ShowAllSquare>
               </RevealWrapper>
-
             </CategoryGrid>
           </CategoryWrapper>
         ))}
@@ -96,18 +92,12 @@ export async function getServerSideProps(ctx) {
     const childCatIds = categories
       .filter(c => c?.parent?.toString() === mainCatId)
       .map(c => c._id.toString());
-
-      const categoriesIds = [mainCatId, ...childCatIds];
-
+    const categoriesIds = [mainCatId, ...childCatIds];
     const products = await Product.find({category: categoriesIds}, null,
       {limit:3, sort:{'_id':-1}});
       allFetchedProductsId.push(...products.map(p => p._id.toString()))
     categoriesProducts[mainCat._id] = products;
-
   }
-
-  // Object.values(categoriesProducts).map(catProducts => allFetchedProductsId.push(catProducts))
-
 
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
   const wishedProducts = session?.user ? await WishedProduct.find({

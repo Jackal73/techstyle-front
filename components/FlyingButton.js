@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { ButtonStyle } from "./Button";
 import { primary } from "@/lib/colors";
-
 import { useContext, useEffect, useRef, useState } from "react";
 import { CartContext } from "./CartContext";
 
 const FlyingButtonWrapper = styled.div`
   button{
     ${ButtonStyle};
+
     ${props => props.main ? `
       background-color: ${primary};
       color:white;
@@ -16,12 +16,14 @@ const FlyingButtonWrapper = styled.div`
       border: 1px solid ${primary};
       color:${primary};
     `}
+
     ${props => props.white && `
       background-color: white;
       border: 1px solid white;
       font-weight:500;
     `}
   }
+
   @keyframes fly{
     100%{
       top:0;
@@ -32,6 +34,7 @@ const FlyingButtonWrapper = styled.div`
       max-height: 50px;
     }
   }
+
   img {
     display:none;
     max-width: 100px;
@@ -61,34 +64,21 @@ export default function FlyingButton(props) {
       const reveal = imgRef.current?.closest('div[data-sr-id]');
       if (reveal?.style.opacity === '1') {  // visible
         reveal.style.transform = 'none';
-
       }
     },100);
-
     return () => clearInterval(interval);
   }, []);
 
-
-
-
-
   return (
     <>
-
-
       <FlyingButtonWrapper
-
-
-      white={props.white} main={props.main} onClick={() => addProduct(props._id)}>
-        <img src={props.src} alt="" ref={imgRef} />
-      <button onClick={ev => sendImageToCart(ev)} {...props}
-
-        // targetLeft={'95px'}
-      />
-    </FlyingButtonWrapper>
-
-
+        white={props.white}
+        main={props.main}
+        onClick={() => addProduct(props._id)}
+      >
+        <img src={props.src} alt="Added Product" ref={imgRef} />
+        <button onClick={ev => sendImageToCart(ev)} {...props} />
+      </FlyingButtonWrapper>
     </>
   );
-
 }

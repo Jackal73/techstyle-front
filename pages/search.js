@@ -58,12 +58,12 @@ export default function SearchPage() {
       <Header />
       <Center>
         <InputWrapper>
-        <SearchInput
-          autoFocus
-          value={phrase}
-          onChange={(ev)=>setPhrase(ev.target.value)}
-          placeholder="Search for products..."
-        />
+          <SearchInput
+            autoFocus
+            value={phrase}
+            onChange={(ev)=>setPhrase(ev.target.value)}
+            placeholder="Search for products..."
+          />
         </InputWrapper>
 
           {!isLoading && phrase !== '' && products.length === 0 && (

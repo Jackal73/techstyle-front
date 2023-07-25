@@ -88,49 +88,47 @@ export default function ProductReviews({product}) {
     <div>
       <Title>Reviews</Title>
       <ColsWrapper>
-      <div>
-        <WhiteBox>
-          <Subtitle>Add a review</Subtitle>
-          <div>
-            <StarsRating onChange={setStars} />
-          </div>
-          <Input
-            value={title}
-            onChange={ev => setTitle(ev.target.value)}
-            placeholder="Title"
-          />
-          <Textarea
-            value={description}
-            onChange = {ev => setDescription(ev.target.value)}
-            placeholder="Was it good? Pros? Cons?" />
-          <div>
-            <Button primary onClick={submitReview}>Submit review</Button>
-          </div>
-        </WhiteBox>
-      </div>
-      <div>
-        <WhiteBox>
-          <Subtitle>All reviews</Subtitle>
-          {reviewsLoading && (
-              <Spinner fullWidth={true} />
-            )}
-            {reviews.length === 0 && (
-              <p>No reviews :(</p>
-            )}
-            {reviews.length > 0 && reviews.map(review => (
-              <ReviewWrapper key={review._id}>
-                <ReviewHeader>
-                  <StarsRating size={'sm'} disabled={true} defaultHowMany={review.stars} />
-                  <time>{(new Date(review.createdAt)).toLocaleString('en-US')}</time>
-                </ReviewHeader>
-                  <h3>{review.title}</h3>
-                  <p>{review.description}</p>
-              </ReviewWrapper>
-            ))}
-        </WhiteBox>
-      </div>
-
-
+        <div>
+          <WhiteBox>
+            <Subtitle>Add a review</Subtitle>
+            <div>
+              <StarsRating onChange={setStars} />
+            </div>
+            <Input
+              value={title}
+              onChange={ev => setTitle(ev.target.value)}
+              placeholder="Title"
+            />
+            <Textarea
+              value={description}
+              onChange = {ev => setDescription(ev.target.value)}
+              placeholder="Was it good? Pros? Cons?" />
+            <div>
+              <Button primary onClick={submitReview}>Submit review</Button>
+            </div>
+          </WhiteBox>
+        </div>
+        <div>
+          <WhiteBox>
+            <Subtitle>All reviews</Subtitle>
+            {reviewsLoading && (
+                <Spinner fullWidth={true} />
+              )}
+              {reviews.length === 0 && (
+                <p>No reviews :(</p>
+              )}
+              {reviews.length > 0 && reviews.map(review => (
+                <ReviewWrapper key={review._id}>
+                  <ReviewHeader>
+                    <StarsRating size={'sm'} disabled={true} defaultHowMany={review.stars} />
+                    <time>{(new Date(review.createdAt)).toLocaleString('en-US')}</time>
+                  </ReviewHeader>
+                    <h3>{review.title}</h3>
+                    <p>{review.description}</p>
+                </ReviewWrapper>
+              ))}
+          </WhiteBox>
+        </div>
       </ColsWrapper>
     </div>
   )

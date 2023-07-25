@@ -15,13 +15,16 @@ const StarWrapper = styled.button`
     height: 1.4rem;
     width: 1.4rem;
   `}
+
   ${props => props.size === 'sm' && `
     height: 1rem;
     width: 1rem;
   `}
+
   ${props => !props.disabled && `
     cursor: pointer;
   `}
+
   padding: 0;
   border: none;
   display: inline-block;
@@ -29,12 +32,7 @@ const StarWrapper = styled.button`
   color: ${primary}
 `;
 
-export default function StarsRating({
-  size='md',
-  defaultHowMany = 0,
-  disabled,
-  onChange
-}) {
+export default function StarsRating({ size='md', defaultHowMany = 0, disabled, onChange }) {
   const [howMany, setHowMany] = useState(defaultHowMany);
   const five = [1, 2, 3, 4, 5];
 

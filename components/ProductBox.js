@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Button, { ButtonStyle } from "./Button";
 import { CartContext } from "./CartContext";
-
 import { primary } from "@/lib/colors";
 import FlyingButton from "./FlyingButton";
 import HeartOutlineIcon from "./icons/HeartOutlineIcon";
@@ -89,18 +88,9 @@ const WishlistButton = styled.button`
   }
 `;
 
-
-
-
-
-
-
 export default function ProductBox({ _id, title, description, price, images, wished=false, onRemoveFromWishlist=()=>{}, }) {
-  // const {addProduct} = useContext(CartContext);
   const url = "/product/" + _id;
   const [isWished,setIsWished] = useState(wished);
-
-
 
   function addToWishlist(ev) {
     ev.preventDefault();
@@ -110,15 +100,10 @@ export default function ProductBox({ _id, title, description, price, images, wis
       onRemoveFromWishlist(_id);
     }
 
-
     axios.post('/api/wishlist', {
       product: _id
     }).then(() => {})
     setIsWished(nextValue)
-
-
-
-
   }
 
   return (
@@ -135,13 +120,7 @@ export default function ProductBox({ _id, title, description, price, images, wis
         <Title href={url}>{title}</Title>
         <PriceRow>
           <Price>${price}</Price>
-
-            <FlyingButton _id={_id} src={images?.[0]}
-            >
-              Add to cart
-            </FlyingButton>
-
-
+            <FlyingButton _id={_id} src={images?.[0]}>Add to cart</FlyingButton>
         </PriceRow>
       </ProductInfoBox>
     </ProductWrapper>

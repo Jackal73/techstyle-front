@@ -10,9 +10,6 @@ import { getServerSession } from "next-auth";
 import { WishedProduct } from "@/models/WishedProduct";
 
 export default function ProductsPage({products, wishedProducts}) {
-
-
-
   return (
     <>
       <Header />
@@ -33,10 +30,10 @@ export async function getServerSideProps(ctx) {
     product: products.map(p => p._id.toString()),
   }) : []
 
-
   return {
     props:{
       products: JSON.parse(JSON.stringify(products)),
       wishedProducts: wishedProducts.map(i => i.product?.toString()),
-    }};
+    }
+  };
 }

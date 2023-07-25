@@ -47,7 +47,6 @@ const ColumnsWrapper = styled.div`
     }
     img{
       max-width: 100%;
-
     }
   }
 `;
@@ -62,25 +61,24 @@ const ButtonsWrapper = styled.div`
   gap: 10px;
   margin-top: 25px;
 `;
+
 const CenterImg = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 `;
+
 const ImgColumn = styled(Column)`
   & > div{
     width: 100%;
   }
 `;
+
 const ContentWrapper = styled.div`
 `;
 
-
-
 export default function Featured({ product }) {
-
-
 
   return (
     <Bg>
@@ -88,13 +86,11 @@ export default function Featured({ product }) {
         <ColumnsWrapper>
           <Column>
             <div>
-
               <RevealWrapper origin={'left'} delay={0}>
                 <ContentWrapper>
                   <Title>{product.title}</Title>
                   <Desc>{product.description}</Desc>
                     <ButtonsWrapper>
-
                       <ButtonLink href={"/product/" + product._id} outline={1} white={1}>
                           Read more
                         </ButtonLink>
@@ -102,24 +98,21 @@ export default function Featured({ product }) {
                           <CartIcon />
                           Add to cart
                         </FlyingButton>
-
                     </ButtonsWrapper>
                 </ContentWrapper>
               </RevealWrapper>
-
             </div>
           </Column>
           <ImgColumn>
             <RevealWrapper delay={0}>
-              <CenterImg className="">
+              <CenterImg>
                 <img
-                    className={'main'}
-                    src={product.images?.[0]}
-                    alt="Featured product image"
-                  />
+                  className={'main'}
+                  src={product.images?.[0]}
+                  alt="Featured product image"
+                />
               </CenterImg>
             </RevealWrapper>
-
           </ImgColumn>
         </ColumnsWrapper>
       </Center>

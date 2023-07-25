@@ -14,7 +14,6 @@ import ProductBox from "@/components/ProductBox";
 import Tabs from "@/components/Tabs";
 import SingleOrder from "@/components/SingleOrder";
 
-
 const ColsWrapper = styled.div`
   display:grid;
   grid-template-columns: 1.2fr;
@@ -92,6 +91,7 @@ export default function AccountPage() {
       setWishedProducts(response.data.map(wp => wp.product));
       setWishlistLoaded(true);
     });
+
     axios.get('/api/orders').then(response => {
       setOrders(response.data);
       setOrderLoaded(true);
@@ -103,9 +103,6 @@ export default function AccountPage() {
       return [...products.filter(p => p._id.toString() !== idToRemove)];
     });
   }
-
-
-
 
   return (
     <>
@@ -140,122 +137,114 @@ export default function AccountPage() {
                 )}
                 {activeTab === 'Wishlist' && (
                   <>
-                  {!wishlistLoaded && (
-                    <Spinner fullWidth={true} />
-                  )}
-                  {wishlistLoaded && (
-                    <>
-                      <WishedProductsGrid>
-                        {wishedProducts.length > 0 && wishedProducts.map(wp => (
-                          <ProductBox key={wp._id} {...wp} wished={true} onRemoveFromWishlist= {productRemovedFromWishlist} />
-                        ))}
-                      </WishedProductsGrid>
-
-                      {wishedProducts.length === 0 && (
-                        <>
-                          {session && (
-                            <p className="">Your wishlist is empty</p>
-                          )}
+                    {!wishlistLoaded && (
+                      <Spinner fullWidth={true} />
+                    )}
+                    {wishlistLoaded && (
+                      <>
+                        <WishedProductsGrid>
+                          {wishedProducts.length > 0 && wishedProducts.map(wp => (
+                            <ProductBox key={wp._id} {...wp} wished={true} onRemoveFromWishlist= {productRemovedFromWishlist} />
+                          ))}
+                        </WishedProductsGrid>
+                        {wishedProducts.length === 0 && (
+                          <>
+                            {session && (
+                              <p className="">Your wishlist is empty</p>
+                            )}
                             {!session && (
                               <p className="">Login to add products to wishlist</p>
                             )}
-                        </>
-                      )}
-                    </>
-                  )}
+                          </>
+                        )}
+                      </>
+                    )}
                 </>
                 )}
-
               </WhiteBox>
             </RevealWrapper>
           </div>
           <div>
             <RevealWrapper delay={100}>
               <WhiteBox>
-              <h2>{session ? 'Account details' : 'Login'}</h2>
-
-                {!addressLoaded && (
-                  <Spinner fullWidth={true} />
-                )}
-              {addressLoaded && session && (
-                <>
-                  <Input
-                    type="text"
-                    placeholder="Name"
-                    value={name}
-                    name="name"
-                    onChange={ev => setName(ev.target.value)} />
-                  <Input
-                    type="text"
-                    placeholder="Email"
-                    value={email}
-                    name="email"
-                    onChange={ev => setEmail(ev.target.value)} />
-
-                  <Input
-                    type="text"
-                    placeholder="Street Address"
-                    value={streetAddress}
-                    name="streetAddress"
-                    onChange={ev => setStreetAddress(ev.target.value)} />
-
-                  <CityHolder>
-                    <Input
-                      type="text"
-                      placeholder="City"
-                      value={city}
-                      name="city"
-                      onChange={ev => setCity(ev.target.value)} />
-                    <Input
-                      type="text"
-                      placeholder="Postal Code"
-                      value={postalCode}
-                      name="postalCode"
-                      onChange={ev => setPostalCode(ev.target.value)} />
-                  </CityHolder>
-                  <Input
-                    type="text"
-                    placeholder="State"
-                    value={state}
-                    name="state"
-                    onChange={ev => setState(ev.target.value)} />
-
-                  <Input
-                    type="text"
-                    placeholder="Country"
-                    value={country}
-                    name="country"
-                    onChange={ev => setCountry(ev.target.value)} />
-
-
-                  <Button
-                    black
-                    block
-                    onClick={saveAddress}
-                    >
-                      Save
-                  </Button>
-                  <hr />
-                </>
-
-              )}
-
-              {session && (
-                <Button primary onClick={logout}>Logout</Button>
-              )}
-              {!session && (
-                <Button primary onClick={login}>Login with Google</Button>
-              )}
-            </WhiteBox>
+                <h2>{session ? 'Account details' : 'Login'}</h2>
+                  {!addressLoaded && (
+                    <Spinner fullWidth={true} />
+                  )}
+                  {addressLoaded && session && (
+                    <>
+                      <Input
+                        type="text"
+                        placeholder="Name"
+                        value={name}
+                        name="name"
+                        onChange={ev => setName(ev.target.value)}
+                      />
+                      <Input
+                        type="text"
+                        placeholder="Email"
+                        value={email}
+                        name="email"
+                        onChange={ev => setEmail(ev.target.value)}
+                      />
+                      <Input
+                        type="text"
+                        placeholder="Street Address"
+                        value={streetAddress}
+                        name="streetAddress"
+                        onChange={ev => setStreetAddress(ev.target.value)}
+                      />
+                      <CityHolder>
+                        <Input
+                          type="text"
+                          placeholder="City"
+                          value={city}
+                          name="city"
+                          onChange={ev => setCity(ev.target.value)}
+                        />
+                        <Input
+                          type="text"
+                          placeholder="Postal Code"
+                          value={postalCode}
+                          name="postalCode"
+                          onChange={ev => setPostalCode(ev.target.value)}
+                        />
+                      </CityHolder>
+                      <Input
+                        type="text"
+                        placeholder="State"
+                        value={state}
+                        name="state"
+                        onChange={ev => setState(ev.target.value)}
+                      />
+                      <Input
+                        type="text"
+                        placeholder="Country"
+                        value={country}
+                        name="country"
+                        onChange={ev => setCountry(ev.target.value)}
+                      />
+                      <Button
+                        black
+                        block
+                        onClick={saveAddress}
+                      >
+                        Save
+                      </Button>
+                      <hr />
+                    </>
+                  )}
+                  {session && (
+                    <Button primary onClick={logout}>Logout</Button>
+                  )}
+                  {!session && (
+                    <Button primary onClick={login}>Login with Google</Button>
+                  )}
+              </WhiteBox>
             </RevealWrapper>
-
           </div>
-
         </ColsWrapper>
-
-
-
       </Center>
-      </>
+    </>
   );
 }

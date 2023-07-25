@@ -10,7 +10,6 @@ import WhiteBox from "@/components/WhiteBox";
 import CartIcon from "@/components/icons/CartIcon";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
-// import { useContext } from "react";
 import styled from "styled-components";
 
 const ColWrapper = styled.div`
@@ -22,17 +21,18 @@ const ColWrapper = styled.div`
   gap: 40px;
   margin: 40px 0;
 `;
+
 const PriceRow = styled.div`
   display: flex;
   gap: 20px;
   align-items: center;
 `;
+
 const Price = styled.span`
   font-size: 1.4rem;
 `;
 
 export default function ProductPage({product}) {
-  // const {addProduct} = useContext(CartContext);
   return (
     <>
       <Header />
@@ -43,17 +43,16 @@ export default function ProductPage({product}) {
           </WhiteBox>
           <div>
             <Title>{product.title}</Title>
-            <p>{product.description}</p>
-            <PriceRow>
-              <div><Price>${product.price}</Price></div>
-            <div>
-
-              <FlyingButton main _id={product._id} src={product.images?.[0]}>
-              <CartIcon />
-                  Add to Cart
-              </FlyingButton>
-          </div>
-            </PriceRow>
+              <p>{product.description}</p>
+              <PriceRow>
+                <div><Price>${product.price}</Price></div>
+                <div>
+                  <FlyingButton main _id={product._id} src={product.images?.[0]}>
+                    <CartIcon />
+                    Add to Cart
+                  </FlyingButton>
+                </div>
+              </PriceRow>
           </div>
         </ColWrapper>
         <ProductReviews product={product} />

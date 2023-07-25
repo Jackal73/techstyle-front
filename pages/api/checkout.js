@@ -4,6 +4,7 @@ import { Product } from "@/models/Product";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
 import { Setting } from "@/models/Setting";
+
 const stripe = require('stripe')(process.env.STRIPE_SK);
 
 export default async function handler(req, res) {
@@ -35,13 +36,10 @@ export default async function handler(req, res) {
   }
 
   const session = await getServerSession(req,res,authOptions);
-
   const orderDoc = await Order.create ({
     line_items, name, email, city, state, postalCode, streetAddress, country, paid: false,
     userEmail: session?.user?.email,
-
   });
-
   const shippingFeeSetting = await Setting.findOne({name: 'shippingFee'});
   const shippingFeeCents = parseInt(shippingFeeSetting.value || '0') * 100;
 

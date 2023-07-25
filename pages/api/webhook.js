@@ -33,7 +33,6 @@ export default async function handler(req,res) {
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
-
   res.status(200).send('ok');
 }
 

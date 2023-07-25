@@ -12,22 +12,26 @@ const StyledHeader = styled.header`
   top 0;
   z-index: 10;
 `;
+
 const Logo = styled(Link)`
   color: #fff;
   text-decoration: none;
   position: relative;
   z-index: 3;
 `;
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
 `;
+
+
 const StyledNav = styled.nav`
 ${props => props.mobileNavActive ? `
-display: block;
-` : `
-display: none;
+  display: block;
+  ` : `
+  display: none;
 `}
   gap: 15px;
   position: fixed;
@@ -43,6 +47,7 @@ display: none;
     padding: 0;
   }
 `;
+
 const NavLink = styled(Link)`
   display: block;
   color:#aaa;
@@ -56,6 +61,7 @@ const NavLink = styled(Link)`
     padding:0;
   }
 `;
+
 const NavButton = styled.button`
   background-color: transparent;
   width: 30px;
@@ -99,7 +105,9 @@ export default function Header() {
             <NavLink href={"/cart"}>Cart ({cartProducts.length})</NavLink>
           </StyledNav>
           <SideIcons>
-            <Link href={"/search"}><SearchIcon /></Link>
+            <Link href={"/search"}>
+              <SearchIcon />
+            </Link>
             <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
               <BarsIcon />
             </NavButton>
