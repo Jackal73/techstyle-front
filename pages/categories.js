@@ -107,7 +107,7 @@ export async function getServerSideProps(ctx) {
   }
 
   // Object.values(categoriesProducts).map(catProducts => allFetchedProductsId.push(catProducts))
-  console.log(allFetchedProductsId)
+
 
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
   const wishedProducts = session?.user ? await WishedProduct.find({
