@@ -79,12 +79,9 @@ export default function CategoryPage({
 
     axios.get(url).then(res => {
       setProducts(res.data);
-
         setLoadingProducts(false)
-
-
     })
-  },[filtersValues, sort, filtersChanged, category._id, subCategories]);
+  },[filtersValues, sort, filtersChanged, category, subCategories]);
 
 
 
